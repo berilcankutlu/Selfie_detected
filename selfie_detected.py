@@ -1,37 +1,37 @@
 import cv2 as cv
 
-# Cascade sınıflandırıcıyı yükle, nesne tanıma algoritması olan CascadeClassifier kullanarak
+# Install Cascade classifier, using CascadeClassifier, object recognition algorithm
 face_cascade = cv.CascadeClassifier('haarcascade_frontalface_default.xml')
 
-# Webcam'den video yakalama
+# Capture video from webcam
 capture = cv.VideoCapture(0)
 
 while True:
-    # Video'dan bir kare al
+    # Get a frame from video
     ret, frame = capture.read()
 
-    # Kareyi griye dönüştür
+    # Convert square to gray
     gray = cv.cvtColor(frame, cv.COLOR_BGR2GRAY)
 
-    # Yüzleri algıla
+    # Detect faces
     faces = face_cascade.detectMultiScale(gray, 1.3, 5)
 
-    # Yüzleri dikdörtgen olarak çiz
-    # 153, 0, 204 kodları mor renk için kullanılmış rgb kodlarıdır
+    # Draw faces as rectangles
+    # 153, 0, 204 codes are rgb codes used for purple color
     for (x,y,w,h) in faces:
         cv.rectangle(frame,(x,y),(x+w,y+h),(153, 0, 204),2)
 
-    # Kareyi göster
+    # Show frame
     cv.imshow('frame',frame)
     if ret:
         cv.imwrite("frame-detected.png", frame)
 
-    # 'q' tuşuna basılınca döngüyü sonlandır
+    # End loop when 'q' key is pressed
     if cv.waitKey(1) & 0xFF == ord('q'):
         break
 
 
 
-# Kaynakları serbest bırak
+
 capture.release()
 cv.destroyAllWindows()
