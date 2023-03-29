@@ -23,7 +23,7 @@ while True:
 
     # Show frame
     cv.imshow('frame',frame)
-    if ret:
+    if len(faces) > 0:
         cv.imwrite("frame-detected.png", frame)
 
     # End loop when 'q' key is pressed
